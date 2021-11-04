@@ -1,61 +1,74 @@
-#### SIR Model ####
-
-# How long does it take for X % of the population to get to the R group a function of alpha and beta?
-# What happens if increase alpha only? What happens if increase beta?
-# How does population size affect the length of the epidemic?
-
-# Population Size
+# pop size
 N <- 10000
 
-# Probability of moving from S to I
+# Prob S to I
 alpha <- 0.005
 
-# Probability of moving from I to R
+# Prob I to R
 beta <- 0.4
 
+# Prob R to D
 d <- 0.05
 
-SuInReDe <- function(alpha,beta,N=1000) {
-  suscept <- list(S = c(),I = c(),R = c(),D = c())
-  
-  suscept$S[1] <- N
-  suscept$I[1] <- 1 # making assumption that starting with an infected
-  suscept$R[1] <- 0
-  suscept$D[1] <- 0
-  
-  t <- 1
-  while (suscept$R[t] < (N+1)) {
-    suscept$S[t+1] <- rbinom(1,suscept$S[t], (1-alpha)^(suscept$I[t]))
+suscept <- list() # list with SIRD
+suscept$S[1] <- N
+suscept$I[1] <- 1
+suscept$R[1] <- 0
+suscept$D[1] <- 0
+
+t_1 <- 1
+
+while (suscept$R[t_1] < N) {
+  #while (TRUE) { # only when running a function i.e. while true runs until return a value i.e. in a function
+    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1]))
+    suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta)
+    suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1]
+   # suscept$D[t_1 + 1] <- suscept$D[t_1] + rbinom(1, suscept$R[t_1], d)
     
-    suscept$R[t+1] <- suscept$R[t] + rbinom(1,suscept$I[t],beta)
+    t_1 <- t_1 + 1
     
-    suscept$I[t+1] <- N + 1 - suscept$S[t+1] - suscept$R[t+1]
-    suscept$D[t+1] <- suscept$D[t] + rbinom(1,suscept$R[t],d)
-    t <- t + 1
-  }
-  for (i in suscept$R) {
-    print(i)
-    suscept$D[i] <- rbinom(1,suscept$R[i+1],d)
-  }
-  
-  if (suscept$R[t] == (N+1)) {
-    suscept$S[(length(suscept$S))] <- suscept$R[(length(suscept$R))]
-    suscept$R[(length(suscept$R))] <- 0
-  }
-  # t <- t+1
-  suscept$I[(length(suscept$I))] <- 1
-  
-  while (suscept$R[(length(suscept$R))] < (N+1)) {
-    suscept$S[t+1] <- rbinom(1,suscept$S[t], (1-alpha)^(suscept$I[t]))
-    
-    suscept$R[t+1] <- suscept$R[t] + rbinom(1,suscept$I[t],beta)
-    
-    suscept$I[t+1] <- N + 1 - suscept$S[t+1] - suscept$R[t+1]
-    
-    t <- t + 1
-  }
-  
-  # suscept$S[(length(suscept$S))] <- suscept$R[(length(suscept$R))]
-  return(list(SIR = suscept, t = length(suscept$S)))
+    # # part where I am trying to restore/add all the recovered (R) to susceptible pop (S)
+    # if (suscept$S == 0) {
+    #   while (TRUE) {
+    #     suscept$S[t_1] <- suscept$R[t_1]
+    #     suscept$R[t_1] <- 0
+      }
+    #}
+#   }
+# }
+
+plot(suscept$S,type = "l",col = "green")
+points(suscept$I,type = "l", col = "red")
+points(suscept$R,type = "l", col = "blue")
+
+
+
+
+
+# for (i in suscept$R) {
+#   print(i)
+#   suscept$D[i] <- rbinom(1, suscept$R[i + 1], d)
+# }
+
+
+
+if (suscept$R[t_1] == (N + 1)) {
+  suscept$S[(length(suscept$S))] <- suscept$R[(length(suscept$R))]
+  suscept$R[(length(suscept$R))] <- 0
 }
-SIR(alpha,beta,N)
+# t_1 <- t+1
+suscept$I[(length(suscept$I))] <- 1
+
+while (suscept$R[(length(suscept$R))] < (N + 1)) {
+  suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha) ^ (suscept$I[t_1]))
+  
+  suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta)
+  
+  suscept$I[t_1 + 1] <- N + 1 - suscept$S[t_1 + 1] - suscept$R[t_1 + 1]
+  
+  t_1 <- t_1 + 1
+}
+
+# suscept$S[(length(suscept$S))] <- suscept$R[(length(suscept$R))]
+suscept
+t
