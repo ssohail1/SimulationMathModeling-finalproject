@@ -10,24 +10,24 @@ beta <- 0.07
 # Prob R to D # is deadly
 d <- 0.09
 
-# Prob R to S # can be quickly infected again
+# Prob R to S # can be quickly susceptible again
 rs <- 0.4
 
 
-# pop size
-N <- 10000
-
-# Prob S to I
-alpha <- c(0.0005,0.03,0.008,0.01)
-
-# Prob I to R #infects quickly
-beta <- c(0.07,0.0001,0.02,0.09)
-
-# Prob R to D # is deadly
-d <- c(0.09,0.0007,0.002,0.05)
-
-# Prob R to S # can be quickly infected again
-rs <- c(0.04,0.08,0.0005,0.01)
+# # pop size
+# N <- 10000
+# 
+# # Prob S to I
+# alpha <- c(0.0005,0.03,0.008,0.01)
+# 
+# # Prob I to R #infects quickly
+# beta <- c(0.07,0.0001,0.02,0.09)
+# 
+# # Prob R to D # is deadly
+# d <- c(0.09,0.0007,0.002,0.05)
+# 
+# # Prob R to S # can be quickly infected again
+# rs <- c(0.04,0.08,0.0005,0.01)
 
 storeans <- c()
 for (i in alpha) {
