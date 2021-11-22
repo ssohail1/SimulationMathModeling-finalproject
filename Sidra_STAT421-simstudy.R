@@ -48,7 +48,7 @@ SIRDS <- function(StoIprob,ItoRprob,RtoDprob,RtoSprob,Npopul) {
   suscept$D[1] <- 0
   suscept$RS[1] <- 0
   
-  t_1 <- 1
+  t__1 <- 1
   
   while (suscept$R[t_1] < N) {
     #while (TRUE) { # only when running a function i.e. while true runs until return a value i.e. in a function
