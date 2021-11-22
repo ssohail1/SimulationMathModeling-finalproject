@@ -1,35 +1,35 @@
-# # pop size
-# N <- 10000
-# 
-# # Prob S to I
-# alpha <- 0.0005
-# 
-# # Prob I to R #infects quickly
-# beta <- 0.07
-# 
-# # Prob R to D # is deadly
-# d <- 0.09
-# 
-# # Prob R to S # can be quickly susceptible again
-# rs <- 0.4
+# pop size
+N1 <- 10000
+
+# Prob S to I
+alpha1 <- 0.0005
+
+# Prob I to R #infects quickly
+beta1 <- 0.07
+
+# Prob R to D # is deadly
+d1 <- 0.09
+
+# Prob R to S # can be quickly susceptible again
+rs1 <- 0.4
 
 # probabilities as function of age group - going from 0-12, 12-25, 25-60, 60+
 # # pop size
-  N <- 10000
+N <- 10000
 # 
 # # Prob S to I
- alpha <- c(0.05,0.08,0.2,0.5)
+alpha <- c(0.05,0.08,0.2,0.5)
 # 
 # # Prob I to R 
- beta <- c(0.2,0.3,0.07,0.03)
+beta <- c(0.2,0.3,0.07,0.03)
 # 
 # # Prob R to D
- d <- c(0.005,0.004,0.02,0.08)
+d <- c(0.005,0.004,0.02,0.08)
 # 
 # # Prob R to S 
- rs <- c(0.04,0.04,0.04,0.04)
+rs <- c(0.04,0.04,0.04,0.04)
 
- SIRDS <- function(alpha,beta,d,rs,N) {
+SIRDS <- function(alpha,beta,d,rs,N) {
    
    suscept <- list() # list with SIRDS
    suscept$S[1] <- N
@@ -71,16 +71,23 @@ for (i in alpha) {
   }
 }
 oddnum <- seq(1,512,2)
+sirdss <- c()
 for (i in oddnum) {
-  plot(storeans[i]$S,type = "l",col = "green")
-  points(storeans[i]$I,type = "l", col = "red")
-  points(storeans[i]$R,type = "l", col = "blue")
-  points(storeans[i]$D,type = "l", col = "black")
-  points(storeans[i]$RS,type = "l", col = "pink")
+  sirdsstore <- storeans[i]
+  sirdss <- c(sirdsstore,sirdss)
+
+}
+
+for (i in sirdss) {
+  plot(i$S,type = "l",col = "green")
+  points(i$I,type = "l", col = "red")
+  points(i$R,type = "l", col = "blue")
+  points(i$D,type = "l", col = "black")
+  points(i$RS,type = "l", col = "pink")
 }
 
 
-sirdsfxn <- SIRDS(alpha,beta,d,rs,N)
+sirdsfxn <- SIRDS(alpha1,beta1,d1,rs1,N1)
 
 plot(sirdsfxn$sirds$S,type = "l",col = "green")
 points(sirdsfxn$sirds$I,type = "l", col = "red")
