@@ -47,9 +47,9 @@ SIRDS <- function(alpha,beta,d,rs,N) {
   # probrs <- 0
   t_1 <- 1
   
-  while (c(suscept$S[t_1],suscept$I[t_1],suscept$R[t_1],suscept$D[t_1]) < N && c(suscept$S[t_1],suscept$I[t_1],suscept$R[t_1],suscept$D[t_1]) > 0 ) {
+  while (c(suscept$S[t_1],suscept$I[t_1],suscept$R[t_1],suscept$D[t_1]) < N && c(suscept$S[t_1],suscept$I[t_1],suscept$R[t_1],suscept$D[t_1]) >= 0 ) {
     #while (TRUE) { # only when running a function i.e. while true runs until return a value i.e. in a function
-    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1])) - suscept$D[t_1] +suscept$R[t_1] #+ probrs #suscept$RS[t_1] - suscept$S ; suscept$moved[t_1]
+    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1])) - suscept$D[t_1] + suscept$R[t_1] #+ probrs #suscept$RS[t_1] - suscept$S ; suscept$moved[t_1]
     suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta) - suscept$D[t_1]
     suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1] - suscept$D[t_1]
     #suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta) # - suscept$moved[t_1]
@@ -57,7 +57,7 @@ SIRDS <- function(alpha,beta,d,rs,N) {
     # suscept$moved[t_1 + 1] <- rbinom(1, suscept$R[t_1], rs)
     # probrs <- rbinom(1, suscept$R[t_1], rs)
     #suscept$RS[t_1 + 1] <- suscept$S[t_1] + rbinom(1, suscept$R[t_1], rs) # + rbinom(1, suscept$R[t_1], rs) #suscept$moved[t_1]
-    torf <- suscept$S + suscept$I + suscept$R + suscept$D == N #+ suscept$RS
+    #torf <- suscept$S + suscept$I + suscept$R + suscept$D == N #+ suscept$RS
     t_1 <- t_1 + 1
     # if (suscept$S[t_1] < 0) {
     #   suscept$S[t_1] <- suscept$R[t_1 - 1]
@@ -68,14 +68,14 @@ SIRDS <- function(alpha,beta,d,rs,N) {
     #   while (TRUE) {
     #     suscept$S[t_1] <- suscept$R[t_1]
     #     suscept$R[t_1] <- 0
-  }
-  return(list(sirds = suscept, t_ = length(suscept$S, torf)))
+  
+  return(list(sirds = suscept, t_ = length(suscept$S)))
 }
 
-ans1 <- SIRDS(alpha1,beta1,d1,rs1,N)
+ans1 <- SIRDS(alpha,beta,d,rs,N)
 ans2 <- SIRDS(alpha2,beta2,d2,rs1,N)
 ans3 <- SIRDS(alpha3,beta3,d3,rs1,N)
-ans4 <- SIRDS(alpha4,beta4,d4,rs1,N)
+ans4 <- SIRDS(alpha4,beta4,d4,rs,N)
 anstab <- 
   library(ggplot2)
 ggplot(data = )
