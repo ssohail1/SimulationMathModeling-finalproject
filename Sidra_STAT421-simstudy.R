@@ -14,6 +14,7 @@ d1 <- 0.09
 rs1 <- 0.4
 
 # probabilities as function of age group - going from 0-12, 12-25, 25-60, 60+
+
 # # pop size
 N <- 10000
 # 
@@ -40,13 +41,16 @@ SIRDS <- function(alpha,beta,d,rs,N) {
    
    t_1 <- 1
    
-   while (suscept$R[t_1] < N) {
+   while (suscept$D[t_1] < N) {
      #while (TRUE) { # only when running a function i.e. while true runs until return a value i.e. in a function
-     suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1]))
-     suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta)
-     suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1]
-     suscept$D[t_1 + 1] <- suscept$D[t_1] + rbinom(1, suscept$R[t_1], d)
-     suscept$RS[t_1 + 1] <- suscept$S[t_1] + rbinom(1, suscept$R[t_1], rs)
+     suscept$S[t_1 + 1] <- rbinom(1,suscept$R[t_1], rs) + rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1]))
+     suscept$moved[t_1 + 1] <- rbinom(1,suscept$R[t_1], rs)
+     #susceptmoved <- rbinom(1,suscept$R[t_1], rs)
+     suscept$R[t_1 + 1] <- suscept$R[t_1] - suscept$moved[t_1] + rbinom(1, suscept$I[t_1], beta)
+     suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1] - suscept$D[t_1]
+     suscept$D[t_1 + 1] <- suscept$D[t_1] + rbinom(1, suscept$I[t_1], d)
+     
+     #suscept$RS[t_1 + 1] <- suscept$S[t_1] + rbinom(1, suscept$R[t_1], rs)
      t_1 <- t_1 + 1
      
      # # part where I am trying to restore/add all the recovered (R) to susceptible pop (S)
@@ -58,7 +62,12 @@ SIRDS <- function(alpha,beta,d,rs,N) {
    return(list(sirds = suscept, t_ = length(suscept$S)))
  }
  
- 
+storean <- list()
+for (i in 1:4) {
+  ans <- SIRDS(alpha[i],beta[i],d[i],rs[i],N)
+  storean[i] <- ans
+}
+
 storeans <- c()
 for (i in alpha) {
   for (j in beta) {
