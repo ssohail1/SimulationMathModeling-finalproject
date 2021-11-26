@@ -49,9 +49,9 @@ SIRDS <- function(alpha,beta,d,rs,N) {
   
   while (suscept$R[t_1] < N) {
     #while (TRUE) { # only when running a function i.e. while true runs until return a value i.e. in a function
-    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1])) #+ probrs #suscept$RS[t_1] - suscept$S ; suscept$moved[t_1]
-    suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta)
-    suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1]
+    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1])) - suscept$D[t_1] #+ probrs #suscept$RS[t_1] - suscept$S ; suscept$moved[t_1]
+    suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta) - suscept$D[t_1]
+    suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1] - suscept$D[t_1]
     #suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta) # - suscept$moved[t_1]
     suscept$D[t_1 + 1] <- suscept$D[t_1] + rbinom(1, suscept$I[t_1], d)
     # suscept$moved[t_1 + 1] <- rbinom(1, suscept$R[t_1], rs)
