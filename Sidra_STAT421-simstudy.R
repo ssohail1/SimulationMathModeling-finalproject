@@ -42,7 +42,7 @@ SIRDS <- function(alpha,beta,d,rs,N) {
   suscept$I[1] <- 1
   suscept$R[1] <- 0
   suscept$D[1] <- 0
-  suscept$RS[1] <- 0
+  # suscept$RS[1] <- 0
   # suscept$moved[1] <- 0
   # probrs <- 0
   t_1 <- 1
@@ -56,8 +56,8 @@ SIRDS <- function(alpha,beta,d,rs,N) {
     suscept$D[t_1 + 1] <- suscept$D[t_1] + rbinom(1, suscept$I[t_1], d)
     # suscept$moved[t_1 + 1] <- rbinom(1, suscept$R[t_1], rs)
     # probrs <- rbinom(1, suscept$R[t_1], rs)
-    suscept$RS[t_1 + 1] <- suscept$S[t_1] + rbinom(1, suscept$R[t_1], rs) # + rbinom(1, suscept$R[t_1], rs) #suscept$moved[t_1]
-    torf <- suscept$S + suscept$I + suscept$R + suscept$D + suscept$RS == N
+    #suscept$RS[t_1 + 1] <- suscept$S[t_1] + rbinom(1, suscept$R[t_1], rs) # + rbinom(1, suscept$R[t_1], rs) #suscept$moved[t_1]
+    torf <- suscept$S + suscept$I + suscept$R + suscept$D == N #+ suscept$RS
     t_1 <- t_1 + 1
     
     # # part where I am trying to restore/add all the recovered (R) to susceptible pop (S)
