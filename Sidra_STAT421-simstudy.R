@@ -38,7 +38,7 @@ rs <- 0.04 #c(0.04,0.04,0.04,0.04)
 SIRDS <- function(alpha,beta,d,rs,N) {
   
   suscept <- list() # list with SIRDS
-  suscept$S[1] <- N
+  suscept$S[1] <- 9999
   suscept$I[1] <- 1
   suscept$R[1] <- 0
   suscept$D[1] <- 0
@@ -47,9 +47,9 @@ SIRDS <- function(alpha,beta,d,rs,N) {
   # probrs <- 0
   t_1 <- 1
   
-  while (suscept$R[t_1] < N) {
+  while (c(suscept$S[t_1],suscept$I[t_1],suscept$R[t_1],suscept$D[t_1]) < N && c(suscept$S[t_1],suscept$I[t_1],suscept$R[t_1],suscept$D[t_1]) > 0 ) {
     #while (TRUE) { # only when running a function i.e. while true runs until return a value i.e. in a function
-    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1])) - suscept$D[t_1] #+ probrs #suscept$RS[t_1] - suscept$S ; suscept$moved[t_1]
+    suscept$S[t_1 + 1] <- rbinom(1, suscept$S[t_1], (1 - alpha)^(suscept$I[t_1])) - suscept$D[t_1] +suscept$R[t_1] #+ probrs #suscept$RS[t_1] - suscept$S ; suscept$moved[t_1]
     suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta) - suscept$D[t_1]
     suscept$I[t_1 + 1] <- N - suscept$S[t_1 + 1] - suscept$R[t_1 + 1] - suscept$D[t_1]
     #suscept$R[t_1 + 1] <- suscept$R[t_1] + rbinom(1, suscept$I[t_1], beta) # - suscept$moved[t_1]
@@ -59,7 +59,10 @@ SIRDS <- function(alpha,beta,d,rs,N) {
     #suscept$RS[t_1 + 1] <- suscept$S[t_1] + rbinom(1, suscept$R[t_1], rs) # + rbinom(1, suscept$R[t_1], rs) #suscept$moved[t_1]
     torf <- suscept$S + suscept$I + suscept$R + suscept$D == N #+ suscept$RS
     t_1 <- t_1 + 1
-    
+    # if (suscept$S[t_1] < 0) {
+    #   suscept$S[t_1] <- suscept$R[t_1 - 1]
+    # }
+  }
     # # part where I am trying to restore/add all the recovered (R) to susceptible pop (S)
     # if (suscept$S == 0) {
     #   while (TRUE) {
