@@ -67,46 +67,6 @@ ggplot(ans14, aes(x = Num)) +
   geom_line(ans14, mapping = aes(y = sir.R, color = "R"))
 # ************************************************************************
 
-
-# pop size
-N1 <- 10000
-
-# Prob S to I
-alpha1 <- 0.0005
-
-# Prob I to R #infects quickly
-beta1 <- 0.07
-
-# Prob I to D # is deadly
-d1 <- 0.09
-
-# Prob R to S # can be quickly susceptible again
-rs1 <- 0.4
-
-# probabilities as function of age group - going from 0-12, 12-25, 25-60, 60+
-# # pop size
-N <- 10000
-# 
-# # Prob S to I
-alpha <- 0.2 #c(0.05,0.08,0.2,0.5)
-alpha2 <- 0.08
-alpha3 <- 0.2
-alpha4 <- 0.5
-# # Prob I to R 
-beta <- 0.03 #c(0.2,0.3,0.07,0.03)
-beta2 <- 0.3
-beta3 <- 0.07
-beta4 <- 0.03
-# # Prob I to D
-d <- 0.087 #c(0.005,0.004,0.02,0.08)
-d2 <- 0.004
-d3 <- 0.02
-d4 <- 0.08
-# # Prob R to S 
-rs <- 0.04 #c(0.04,0.04,0.04,0.04)
-
-
-
 SIRD <- function(alpha,beta,d,rs,N) { # (alpha,beta,d,rs,N)
   
   susceptR <- list() # list with SIR
@@ -148,23 +108,10 @@ SIRD <- function(alpha,beta,d,rs,N) { # (alpha,beta,d,rs,N)
   return(list(sir = susceptR, sid = susceptD, t_R = t_1R, t_D = t_1)) #, tfR = torfR, tfD = torfD))
 }
 
-library(ggplot2)
-# # pop size
-N <- 10000
-# # Prob S to I
-alpha <- 0.002
-# # Prob I to R 
-beta <- 0.03
-# # Prob I to D
-d <- 0.3
-
-rs <- 0.5
-ans1 <- SIRD(alpha,beta,d,rs,N)
-
 # Four scenarios:
 
 # very mild virus with population of 1000000
-## mildly contagious with mild outcomes
+# # mildly contagious with mild outcomes
 N <- 1000000
 # # Prob S to I
 alpha <- 0.0001
@@ -172,6 +119,7 @@ alpha <- 0.0001
 beta <- 0.07
 # # Prob I to D
 d <- 0.0009
+# # Prob R to S
 rs <- 0.05
 mild <- SIRD(alpha,beta,d,rs,N)
 
@@ -183,6 +131,7 @@ alpha <- 0.43
 beta <- 0.1
 # # Prob I to D
 d <- 0.0004
+# # Prob R to S
 rs <- 0.09
 onlycontagious <- SIRD(alpha,beta,d,rs,N)
 
@@ -194,6 +143,7 @@ alpha <- 0.0002
 beta <- 0.0007
 # # Prob I to D
 d <- 0.01
+# # Prob R to S
 rs <- 0.0001
 dangermild <- SIRD(alpha,beta,d,rs,N) # mclapply(1:2, FUN = SIRD(alpha,beta,d,rs,N), mc.cores = 2) #SIRD(alpha,beta,d,rs,N)
 
@@ -205,6 +155,7 @@ alpha <- 0.2
 beta <- 0.00055
 # # Prob I to D
 d <- 0.25
+# # Prob R to S
 rs <- 0.22
 danger <- SIRD(alpha,beta,d,rs,N) # mclapply(1:1000000, FUN = SIRD(alpha,beta,d,rs,N), mc.cores = 2)
 
