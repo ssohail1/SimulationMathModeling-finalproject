@@ -161,6 +161,8 @@ danger <- SIRD(alpha,beta,d,rs,N) # mclapply(1:1000000, FUN = SIRD(alpha,beta,d,
 
 # Plots of the four scenarios 
 library(ggplot2)
+
+# mild scenario
 mildR <- data.frame(mild[1])
 mildR$Num <- 1:length(mildR$sir.S)
 ggplot(mildR, aes(x = Num)) + 
@@ -180,6 +182,7 @@ ggplot(mildD, aes(x = Num)) +
   geom_line(mildD, mapping = aes(y = sid.D, color = "D"))
 
 
+# onlycontagious scenario
 ocontagR <- data.frame(onlycontagious[1])
 ocontagR$Num <- 1:length(ocontagR$sir.S)
 ggplot(ocontagR, aes(x = Num)) + 
@@ -199,6 +202,7 @@ ggplot(ocontagD, aes(x = Num)) +
   geom_line(ocontagD, mapping = aes(y = sid.D, color = "D"))
 
 
+# dangermild scenario
 dmR <- data.frame(dangermild[1])
 dmR$Num <- 1:length(dmR$sir.S)
 ggplot(dmR, aes(x = Num)) + 
@@ -218,6 +222,7 @@ ggplot(dmD, aes(x = Num)) +
   geom_line(dmD, mapping = aes(y = sid.D, color = "D"))
 
 
+# danger scenario
 dangerR <- data.frame(danger[1])
 dangerR$Num <- 1:length(dangerR$sir.S)
 ggplot(dangerR, aes(x = Num)) + 
@@ -229,6 +234,12 @@ ggplot(dangerR, aes(x = Num)) +
   geom_line(dangerR, mapping = aes(y = sir.R, color = "R")) +
   geom_line(dangerR, mapping = aes(y = sir.RS, color = "RS"))
 
+dangerD <- data.frame(danger[2])
+dangerD$Num <- 1:length(dangerD$sid.S)
+ggplot(dangerD, aes(x = Num)) + 
+  geom_line(dangerD, mapping = aes(y = sid.S, color = "S")) +
+  geom_line(dangerD, mapping = aes(y = sid.I, color = "I")) +
+  geom_line(dangerD, mapping = aes(y = sid.D, color = "D"))
 
 
 
