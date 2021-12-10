@@ -177,7 +177,8 @@ mildR$Num <- 1:length(mildR$sir.S)
 ggplot(mildR, aes(x = Num)) + 
   geom_line(mildR, mapping = aes(y = sir.S, color = "S")) +
   geom_line(mildR, mapping = aes(y = sir.I, color = "I")) +
-  geom_line(mildR, mapping = aes(y = sir.R, color = "R"))
+  geom_line(mildR, mapping = aes(y = sir.R, color = "R")) +
+  labs(y = "Number of People", x = "Days")
 
 ggplot(mildR, aes(x = Num)) + 
   geom_line(mildR, mapping = aes(y = sir.R, color = "R")) +
