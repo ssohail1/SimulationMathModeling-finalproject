@@ -30,7 +30,7 @@ alpha4 <- 0.02
 # # Prob I to R
 beta4 <- 0.8
 
-
+# SIR function
 SIR <- function(alpha,beta,N) {
   
   suscept <- list() # list with SIR
@@ -106,6 +106,7 @@ ggplot(ans14, aes(x = Num)) +
 
 # SIRRS and SID models
 # SIRRS and SID
+# SIRD function
 SIRD <- function(alpha,beta,d,rs,N) { # (alpha,beta,d,rs,N)
   
   susceptR <- list() # list with SIRRS
