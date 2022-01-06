@@ -51,6 +51,7 @@ SIR <- function(alpha,beta,N) {
 
 library(ggplot2)
 
+# Not Contagious and Fatal
 set.seed(1234)
 ans <- SIR(alpha,beta,N)
 ans1 <- data.frame(ans[1])
@@ -64,6 +65,7 @@ ggplot(ans1, aes(x = Num),) +
         axis.text.x = element_text(size = 12), axis.title.y = element_text(size = 12), 
         axis.text.y = element_text(size = 12), title = element_text(size = 12))
 
+# Contagious and Not Fatal 
 set.seed(1234)
 ans2 <- SIR(alpha2,beta2,N)
 ans12 <- data.frame(ans2[1])
@@ -77,6 +79,7 @@ ggplot(ans12, aes(x = Num)) +
         axis.text.x = element_text(size = 12), axis.title.y = element_text(size = 12), 
         axis.text.y = element_text(size = 12), title = element_text(size = 12))
 
+# Contagious and Fatal
 set.seed(1234)
 ans3 <- SIR(alpha3,beta3,N)
 ans13 <- data.frame(ans3[1])
@@ -90,6 +93,7 @@ ggplot(ans13, aes(x = Num)) +
         axis.title.x = element_text(size = 12), axis.text.x = element_text(size = 12), 
         axis.title.y = element_text(size = 12), axis.text.y = element_text(size = 12), title = element_text(size = 12))
 
+# Mild - Not Contagious and Not Fatal
 set.seed(1234)
 ans4 <- SIR(alpha4,beta4,N)
 ans14 <- data.frame(ans4[1])
