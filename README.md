@@ -6,8 +6,7 @@ Various disease outbreaks will be simulated to estimate peaks of those outbreaks
 #### Packages and software to install before running
 R: ggplot2
 ### Files in repo
-- Sidra_STAT421-simstudy.R
-- Sidra_STAT421FinalprojectReport.html
+- Sidra_STAT421-simstudy.R: R script for running the simulation study for different disease outbreaks.
 
 ### How to use
 Clone repository into personal directory using this command,  
