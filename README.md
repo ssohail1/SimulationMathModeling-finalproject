@@ -7,7 +7,7 @@ Various disease outbreaks will be simulated to estimate peaks of those outbreaks
 R: ggplot2
 ### Files in repo
 - Sidra_STAT421-simstudy.R
-- m
+- Sidra_STAT421FinalprojectReport.html
 
 ### How to use
 Clone repository into personal directory using this command,  
