@@ -1,1 +1,3 @@
 # SimulationMathModeling-finalproject
+
+various disease outbreaks will be simulated to estimate peaks of those outbreaks and to model how outbreaks can vary depending on how much the disease is infectious, deadly, or transmissible. The different scenarios of disease outbreaks will be simulated using variations of the SIR model (The SIR Model for Spread of Disease - The Differential Equation Model. (2004)), and the results will be modeled to identify different peaks in the SIR models for different outbreak scenarios. This simulation does not take into account cautionary measures, travel restrictions, mask mandates, or any other regulations that could curtail the outbreak.
